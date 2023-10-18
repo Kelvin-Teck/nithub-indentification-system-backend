@@ -12,25 +12,19 @@ const getAllClients = async () => {
 };
 
 const addClient = async (req) => {
-  const {  fullname,
-  email,
-  phone_number,
-  program,
-  start_date, 
-  end_date,
-        duration } = req.body;
-    
-    const data = {
-      fullname,
-      email,
-      phone_number,
-      program,
-      start_date,
-      end_date,
-      duration,
-    };
+  const { fullname, email, phone_number, start_date, end_date, duration } =
+    req.body;
 
- await clientRepository.addClient(data);
+  const data = {
+    fullname,
+    email,
+    phone_number,
+    start_date,
+    end_date,
+    duration,
+  };
+
+  await clientRepository.addClient(data);
 
   return;
 };

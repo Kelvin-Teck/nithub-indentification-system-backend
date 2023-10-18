@@ -13,7 +13,6 @@ const addClient = async (data) => {
   query.fullname = data.fullname;
   query.email = data.email;
   query.phone_number = data.phone_number;
-  query.program = data.program;
   query.start_date = data.start_date;
   query.end_date = data.end_date;
   query.duration = data.duration;
