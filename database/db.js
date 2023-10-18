@@ -4,7 +4,7 @@ const connectToDB = async () => {
   try {
     mongoose.set("strictQuery", true);
 
-    await mongoose.connect(process.env.MONGODB_URI_PRODUCTION, {
+    await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
       dbName: "nithub-indentification-system",
       useNewUrlParser: true,
       useUnifiedTopology: true,

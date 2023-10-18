@@ -15,9 +15,8 @@ const clientSchema = mongoose.Schema(
       unique: true,
     },
     phone_number: { type: String, required: true, unique: true },
-    program: String ,
-    start_date: { type: Date, required: true },
-    end_date: { type: Date, required: true },
+    start_date: { type: Date },
+    end_date: { type: Date },
     duration: { type: String, required: true },
   },
   { timestamps: true }
