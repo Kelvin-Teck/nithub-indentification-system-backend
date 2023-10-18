@@ -35,7 +35,7 @@ const addClient = async (req, res, next) => {
         .json(helpers.sendError(error.message, error.status));
     }
 
-    return res.status(500).json(helpers.sendError("Internal server error", 500));
+    return res.status(500).json(helpers.sendError(error.message, 500));
   }
 };
 
