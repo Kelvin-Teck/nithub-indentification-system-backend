@@ -1,3 +1,5 @@
+const QRCode = require('qrcode');
+
 const sendError = (message, code) => {
   var error = {
     status: "ERROR",
@@ -25,8 +27,29 @@ const newError = (message, code) => {
   throw error;
 };
 
+
+const data = {
+  "id": 1234,
+  "name": "Jim Reeves",
+  "email": "jimreeves@gmail.com",
+  "gender": "Male"
+}
+
+const generateQRCode = async () => {
+  try {
+    const json_to_string = JSON.stringify(data);
+    const code = await QRCode.toDataURL(json_to_string); 
+    
+    return code;
+  } catch (error) {
+    return newError(`an error occured ${error.message}`, 404);
+  }  
+}
+
+
 module.exports = {
   sendError,
   sendSuccess,
   newError, 
+  generateQRCode
 };

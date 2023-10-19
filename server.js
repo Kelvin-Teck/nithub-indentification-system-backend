@@ -6,8 +6,14 @@ const PORT = process.env.PORT || 1500;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const helpers = require("./config/helpers");
+
+// cors options
+const corsOptions = {
+  origin: "*",
+};
 // cross site origin fix
-app.use(cors());
+app.use(cors(corsOptions));
 
 //Cors
 app.use((req, res, next) => {
@@ -25,10 +31,9 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Parse JSON bodies for all requests
-app.use(express.json({extended: true}));
-app.use(bodyParser.json({extended: true}));
+app.use(express.json({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("Service is up!");
@@ -45,16 +50,11 @@ app.use((err, req, res, next) => {
 const clientRoutes = require("./routes/clientRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 
-
-
 // Route initialization
-app.use('/api/client', clientRoutes);
+app.use("/api/client", clientRoutes);
 app.use("/api/student", studentRoutes);
 
-
-
 app.listen(PORT, async () => {
-  await connectToDB()
-  console.log(`server is running on http://localhost:${PORT}`)
-}
-);
+  await connectToDB();
+  console.log(`server is running on http://localhost:${PORT}`);
+});
