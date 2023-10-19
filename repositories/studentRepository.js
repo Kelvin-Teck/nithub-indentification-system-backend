@@ -7,6 +7,15 @@ const getAllStudents = async () => {
   return allStudents;
 };
 
+const getStudentById = async (id) => {
+  const student = await db.Student.findOne({ _id: id });
+
+  if (!student) {
+    return helpers.newError("client does not exist in our records", 404);
+  }
+
+  return student;
+};
 
 const addStudent = async (data) => {
   const query = {};
@@ -18,6 +27,7 @@ const addStudent = async (data) => {
   query.start_date = data.start_date;
   query.end_date = data.end_date;
   query.program_duration = data.program_duration;
+  query.qrcode = data.qrcode;
 
   const isExistingStudent = await db.Student.findOne(query);
 
@@ -30,8 +40,8 @@ const addStudent = async (data) => {
   return;
 };
 
-
 module.exports = {
-    getAllStudents,
-    addStudent
-}
+  getAllStudents,
+  getStudentById,
+  addStudent,
+};

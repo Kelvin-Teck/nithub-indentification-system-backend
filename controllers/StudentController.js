@@ -41,7 +41,27 @@ const addStudent = async (req, res, next) => {
   }
 };
 
+const getSingleStudentQRCode = async (req, res) => {
+  try {
+    const response = await studentService.getSingleStudentQRCode(req);
+
+    return res
+      .status(200)
+      .json(helpers.sendSuccess("student successfully added!!!", response));
+  } catch (error) {
+    if (error.status) {
+      return res
+        .status(error.status)
+        .json(helpers.sendError(error.message, error.status));
+    }
+
+    return res
+      .status(500)
+      .json(helpers.sendError(error.message, 500));
+  }
+}
+
 module.exports = {
-  getAllStudents,
+  getAllStudents,getSingleStudentQRCode,
   addStudent,
 };

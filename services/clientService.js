@@ -35,7 +35,7 @@ const addClient = async (req) => {
   };
 
   const QRCode = await helpers.generateQRCode(data);
-  console.log(QRCode);
+
   data.qrcode = QRCode; 
 
   await clientRepository.addClient(data);

@@ -32,12 +32,28 @@ const addStudent = async (req) => {
     program_duration,
   };
 
+  const QRCode = await helpers.generateQRCode(data);
+  console.log(QRCode);
+
+   data.qrcode = QRCode; 
+
   await studentRepository.addStudent(data);
 
   return;
 };
 
+const getSingleStudentQRCode = async (req) => {
+  const { id } = req.params;
+  console.log(id);
+  const studentInfo = await studentRepository.getStudentById(id);
+
+  if (!studentInfo) return;
+
+  return studentInfo.qrcode;
+}
+
 module.exports = {
   getAllStudents,
+  getSingleStudentQRCode,
   addStudent,
 };

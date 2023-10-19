@@ -19,6 +19,7 @@ const studentSchema = mongoose.Schema(
     start_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
     program_duration: { type: String, required: true },
+    qrcode: String
   },
   { timestamps: true }
 );
