@@ -33,7 +33,6 @@ const addStudent = async (req) => {
   };
 
   const QRCode = await helpers.generateQRCode(data);
-  console.log(QRCode);
 
    data.qrcode = QRCode; 
 
@@ -44,7 +43,7 @@ const addStudent = async (req) => {
 
 const getSingleStudentQRCode = async (req) => {
   const { id } = req.params;
-  console.log(id);
+  
   const studentInfo = await studentRepository.getStudentById(id);
 
   if (!studentInfo) return;

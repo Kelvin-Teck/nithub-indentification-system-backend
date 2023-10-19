@@ -45,7 +45,7 @@ const addClient = async (req) => {
 
 const getSingleClientQRCode = async (req) => {
   const { id } = req.params;
-  console.log(id)
+
   const clientInfo = await clientRepository.getClientById(id);
    
   if (!clientInfo) return;
