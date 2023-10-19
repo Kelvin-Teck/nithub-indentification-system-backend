@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 1500;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const helpers = require("./config/helpers");
 
 // cors options
 const corsOptions = {

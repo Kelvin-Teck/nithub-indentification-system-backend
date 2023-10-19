@@ -28,14 +28,7 @@ const newError = (message, code) => {
 };
 
 
-const data = {
-  "id": 1234,
-  "name": "Jim Reeves",
-  "email": "jimreeves@gmail.com",
-  "gender": "Male"
-}
-
-const generateQRCode = async () => {
+const generateQRCode = async (data) => {
   try {
     const json_to_string = JSON.stringify(data);
     const code = await QRCode.toDataURL(json_to_string); 

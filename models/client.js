@@ -18,6 +18,7 @@ const clientSchema = mongoose.Schema(
     start_date: { type: Date },
     end_date: { type: Date },
     duration: { type: String, required: true },
+    qrcode: String,
   },
   { timestamps: true }
 );

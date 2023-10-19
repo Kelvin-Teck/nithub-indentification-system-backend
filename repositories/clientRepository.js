@@ -7,6 +7,16 @@ const getAllClients = async () => {
   return allClients;
 };
 
+const getClientById = async (id) => {
+  const client = await db.Client.findOne({ _id: id });
+   
+  if (!client) {
+    return helpers.newError('client does not exist in our records', 404);
+  }
+
+  return client;
+}
+
 const addClient = async (data) => {
     const query = {};
     
@@ -16,6 +26,7 @@ const addClient = async (data) => {
   query.start_date = data.start_date;
   query.end_date = data.end_date;
   query.duration = data.duration;
+  query.qrcode = data.qrcode;
 
     const isExistingClient = await db.Client.findOne(query);
 
@@ -30,5 +41,6 @@ const addClient = async (data) => {
 
 module.exports = {
   getAllClients,
+  getClientById,
   addClient,
 };

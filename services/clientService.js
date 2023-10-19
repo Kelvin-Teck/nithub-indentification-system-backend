@@ -34,12 +34,27 @@ const addClient = async (req) => {
     duration,
   };
 
+  const QRCode = await helpers.generateQRCode(data);
+  console.log(QRCode);
+  data.qrcode = QRCode; 
+
   await clientRepository.addClient(data);
 
   return;
 };
 
+const getSingleClientQRCode = async (req) => {
+  const { id } = req.params;
+  console.log(id)
+  const clientInfo = await clientRepository.getClientById(id);
+   
+  if (!clientInfo) return;
+
+  return clientInfo.qrcode;
+}
+
 module.exports = {
   getAllClients,
   addClient,
+  getSingleClientQRCode
 };

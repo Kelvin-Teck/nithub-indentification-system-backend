@@ -39,7 +39,32 @@ const addClient = async (req, res, next) => {
   }
 };
 
+const getSingleClientQRCode = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const response = await clientService.getSingleClientQRCode(req);
+
+    return res
+      .status(200)
+      .json(
+        helpers.sendSuccess(
+          "Client's QRCode successfully generated!!!",
+          response
+        )
+      );
+  } catch (error) {
+    if (error.status) {
+      return res
+        .status(error.status)
+        .json(helpers.sendError(error.message, error.status));
+    }
+
+    return res.status(500).json(helpers.sendError(error.message, 500));
+  }
+};
+
 module.exports = {
   getAllClients,
   addClient,
+  getSingleClientQRCode,
 };
