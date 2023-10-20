@@ -1,34 +1,33 @@
 const helpers = require("../config/helpers");
-const visitorService = require("../services/visitorService");
+const internService = require("../services/internService");
 
-const getAllVisitors = async (req, res, next) => {
+const getAllInterns = async (req, res, next) => {
   try {
-    const response = await visitorService.getAllVisitors();
+    const response = await internService.getAllInterns();
 
     return res
       .status(200)
       .json(
-        helpers.sendSuccess("all visitors successfully retrived!!!", response)
+        helpers.sendSuccess("all interns successfully retrived!!!", response)
       );
   } catch (error) {
     if (error.status) {
       return res
         .status(error.status)
-        .json(helpers.sendError("couldn't get all visitors!!!", error.status));
+        .json(helpers.sendError("couldn't get all interns!!!", error.status));
     }
 
     return res.status(500).json(helpers.sendError(error.message, 500));
   }
 };
 
-const addVisitor = async (req, res) => {
-
+const addIntern = async (req, res, next) => {
   try {
-    const response = await visitorService.addVisitor(req);
+    const response = await internService.addIntern(req);
 
     return res
       .status(200)
-      .json(helpers.sendSuccess("visitor successfully added!!!", response));
+      .json(helpers.sendSuccess("intern successfully added!!!", response));
   } catch (error) {
     if (error.status) {
       return res
@@ -40,16 +39,16 @@ const addVisitor = async (req, res) => {
   }
 };
 
-const getSingleVisitorQRCode = async (req, res) => {
+const getSingleInternQRCode = async (req, res) => {
   console.log(req.params.id);
   try {
-    const response = await visitorService.getSingleVisitorQRCode(req);
+    const response = await internService.getSingleInternQRCode(req);
 
     return res
       .status(200)
       .json(
         helpers.sendSuccess(
-          "Visitor's QRCode successfully generated!!!",
+          "Intern's QRCode successfully generated!!!",
           response
         )
       );
@@ -65,7 +64,7 @@ const getSingleVisitorQRCode = async (req, res) => {
 };
 
 module.exports = {
-  getAllVisitors,
-  getSingleVisitorQRCode,
-  addVisitor
+    getAllInterns,
+    getSingleInternQRCode,
+    addIntern
 };

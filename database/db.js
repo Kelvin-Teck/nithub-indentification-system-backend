@@ -23,6 +23,7 @@ const db = {};
 
 db.Student = require("../models/student");
 db.Client = require("../models/client");
-
+db.Intern = require("../models/intern");
+db.Visitor = require("../models/visitor");
 
 module.exports = { connectToDB, db };

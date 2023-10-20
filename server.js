@@ -32,26 +32,34 @@ app.use((req, res, next) => {
 
 // Parse JSON bodies for all requests
 app.use(express.json({ extended: true }));
-app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: false }));
 
 app.get("/", (req, res) => {
   res.send("Service is up!");
 });
 
-app.use((err, req, res, next) => {
-  if (err.code == 401) {
-    return res.status(401).send(err.message);
-  }
-  res.status(err.code).json({ message: "Internal Server Error!" });
-});
+// app.use((err, req, res, next) => {
+//   if (err.code == 401) {
+//     return res.status(401).send(err.message);
+//   }
+//   res.status(err.code).json({ message: "Internal Server Error!" });
+// });
 
 // Routes Importation
 const clientRoutes = require("./routes/clientRoutes");
 const studentRoutes = require("./routes/studentRoutes");
+const internRoutes = require("./routes/internRoutes");
+const visitorRoutes = require("./routes/visitorRoutes");
+
+
 
 // Route initialization
 app.use("/api/client", clientRoutes);
 app.use("/api/student", studentRoutes);
+app.use("/api/intern", internRoutes);
+app.use("/api/visitor", visitorRoutes);
+
 
 app.listen(PORT, async () => {
   await connectToDB();

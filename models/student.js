@@ -5,7 +5,6 @@ const studentSchema = mongoose.Schema(
     fullname: {
       type: String,
       required: true,
-      unique: true,
     },
     email: {
       type: String,
@@ -16,8 +15,8 @@ const studentSchema = mongoose.Schema(
     },
     phone_number: { type: String, required: true, unique: true },
     program_type: { type: String, required: true },
-    start_date: { type: Date, required: true },
-    end_date: { type: Date, required: true },
+    start_date: { type: Date, },
+    end_date: { type: Date },
     program_duration: { type: String, required: true },
     qrcode: String
   },
