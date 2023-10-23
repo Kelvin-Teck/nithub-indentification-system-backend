@@ -25,7 +25,10 @@ const addVisitor = async (req) => {
       !phone_number &&
       !duration
     )
-      return helpers.newError("fields cannot be empty", 403);
+    return helpers.newError("fields cannot be empty", 403);
+  
+      if (!name || !email || !phone_number || !duration)
+        return helpers.newError("pls enter all fields", 403);
 
   const data = {
     name,

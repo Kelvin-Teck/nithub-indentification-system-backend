@@ -12,27 +12,19 @@ const getAllInterns = async () => {
 };
 
 const addIntern = async (req) => {
-  const {
-    name,
-    email,
-    phone_number,
-    internship_position,
-    duration,
-  } = req.body;
+  const { name, email, phone_number, internship_position, duration } = req.body;
 
-    if (
-      !name &&
-      !email &&
-      !phone_number &&
-      !internship_position &&
-      !duration
-    )
-      return helpers.newError("fields cannot be empty", 403);
+  if (!name && !email && !phone_number && !internship_position && !duration)
+    return helpers.newError("fields cannot be empty", 403);
+
+  if (!name || !email || !phone_number || !internship_position || !duration)
+    return helpers.newError("pls enter all fields", 403);
 
   const data = {
     name,
     email,
-    phone_number,internship_position,
+    phone_number,
+    internship_position,
     duration,
   };
 
@@ -58,5 +50,5 @@ const getSingleInternQRCode = async (req) => {
 module.exports = {
   getAllInterns,
   getSingleInternQRCode,
-  addIntern
+  addIntern,
 };
