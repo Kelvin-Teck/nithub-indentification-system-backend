@@ -17,18 +17,24 @@ const addStudent = async (req) => {
     email,
     phone_number,
     program_type,
-    start_date,
-    end_date,
     program_duration,
   } = req.body;
 
+
+    if (
+      !fullname &&
+      !email &&
+      !phone_number &&
+      !program_type &&
+      !program_duration
+    )
+    return helpers.newError("fields cannot be empty", 403);
+  
   const data = {
     fullname,
     email,
     phone_number,
     program_type,
-    start_date,
-    end_date,
     program_duration,
   };
 

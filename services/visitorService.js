@@ -19,6 +19,14 @@ const addVisitor = async (req) => {
     duration,
   } = req.body;
 
+    if (
+      !name &&
+      !email &&
+      !phone_number &&
+      !duration
+    )
+      return helpers.newError("fields cannot be empty", 403);
+
   const data = {
     name,
     email,
@@ -50,3 +58,5 @@ module.exports = {
     getSingleVisitorQRCode,
     addVisitor
 };
+
+

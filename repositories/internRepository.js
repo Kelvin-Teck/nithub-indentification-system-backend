@@ -2,7 +2,7 @@ const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
 const getAllInterns = async () => {
-  const allInterns = await db.Intern.find({});
+  const allInterns = await db.Intern.find({}).sort({createdAt: -1});
 
   return allInterns;
 };

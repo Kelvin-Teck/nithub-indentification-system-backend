@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const connectToDB = async () => {
   try {
     mongoose.set("strictQuery", true);
+    console.log(process.env.MONGODB_URI_PRODUCTION);
 
     await mongoose.connect(process.env.MONGODB_URI_PRODUCTION, {
       dbName: "nithub-indentification-system",

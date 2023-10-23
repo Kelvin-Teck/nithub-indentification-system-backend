@@ -20,6 +20,15 @@ const addIntern = async (req) => {
     duration,
   } = req.body;
 
+    if (
+      !name &&
+      !email &&
+      !phone_number &&
+      !internship_position &&
+      !duration
+    )
+      return helpers.newError("fields cannot be empty", 403);
+
   const data = {
     name,
     email,

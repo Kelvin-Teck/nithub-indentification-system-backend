@@ -2,7 +2,7 @@ const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
 const getAllVisitors = async () => {
-  const allVisitors = await db.Visitor.find({});
+  const allVisitors = await db.Visitor.find({}).sort({createdAt: -1});
 
   return allVisitors;
 };

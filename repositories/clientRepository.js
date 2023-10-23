@@ -2,7 +2,7 @@ const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
 const getAllClients = async () => {
-  const allClients = await db.Client.find({});
+  const allClients = await db.Client.find({}).sort({ createdAt: -1 });
     
   return allClients;
 };

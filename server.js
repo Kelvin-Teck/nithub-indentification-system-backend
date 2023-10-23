@@ -10,25 +10,34 @@ const bodyParser = require("body-parser");
 // cors options
 const corsOptions = {
   origin: "*",
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 };
 // cross site origin fix
 app.use(cors(corsOptions));
 
 //Cors
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
 
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, PATCH, GET");
-    return res.status(200).json({});
-  }
+//   if (req.method == "OPTIONS") {
+//     res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, PATCH, GET");
+//     return res.status(200).json({});
+//   }
 
-  next();
-});
+//   next();
+// });
+
+// app.use((req, res, next) =>  {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 // Parse JSON bodies for all requests
 app.use(express.json({ extended: true }));

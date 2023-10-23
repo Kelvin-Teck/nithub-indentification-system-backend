@@ -2,7 +2,7 @@ const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
 const getAllStudents = async () => {
-  const allStudents = await db.Student.find({});
+  const allStudents = await db.Student.find({}).sort({ createdAt: -1 });
 
   return allStudents;
 };
@@ -11,7 +11,7 @@ const getStudentById = async (id) => {
   const student = await db.Student.findOne({ _id: id });
 
   if (!student) {
-    return helpers.newError("client does not exist in our records", 404);
+    return helpers.newError("student does not exist in our records", 404);
   }
 
   return student;
@@ -24,8 +24,6 @@ const addStudent = async (data) => {
   query.email = data.email;
   query.phone_number = data.phone_number;
   query.program_type = data.program_type;
-  query.start_date = data.start_date;
-  query.end_date = data.end_date;
   query.program_duration = data.program_duration;
   query.qrcode = data.qrcode;
 

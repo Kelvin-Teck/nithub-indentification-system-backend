@@ -34,7 +34,10 @@ const generateQRCode = async (data) => {
 
     return code;
   } catch (error) {
-    return newError(`an error occured ${error.message}`, 404);
+    return newError(
+      `an error occured while generating QRCode '--${error.message}--'`,
+      404
+    );
   }
 };
 

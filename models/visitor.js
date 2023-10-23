@@ -14,7 +14,7 @@ const visitorSchema = mongoose.Schema(
     duration: { type: String, required: true },
     qrcode: String,
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const Visitor = mongoose.model("Visitors", visitorSchema);
