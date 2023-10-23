@@ -6,11 +6,10 @@ const PORT = process.env.PORT || 1500;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-
 // cors options
 const corsOptions = {
-  origin: '*',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  origin: "*",
+  methods: "GET, POST, HEAD, PUT, PATCH, DELETE",
 };
 // cross site origin fix
 app.use(cors(corsOptions));
@@ -31,7 +30,7 @@ app.use(cors(corsOptions));
 //   next();
 // });
 
-app.use((req, res, next) =>  {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -61,14 +60,11 @@ const studentRoutes = require("./routes/studentRoutes");
 const internRoutes = require("./routes/internRoutes");
 const visitorRoutes = require("./routes/visitorRoutes");
 
-
-
 // Route initialization
 app.use("/api/client", clientRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/intern", internRoutes);
 app.use("/api/visitor", visitorRoutes);
-
 
 app.listen(PORT, async () => {
   await connectToDB();
