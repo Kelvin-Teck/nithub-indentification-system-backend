@@ -12,15 +12,13 @@ const getAllClients = async () => {
 };
 
 const addClient = async (req) => {
-  const { fullname, email, phone_number, start_date, end_date, duration } =
+  const { fullname, email, phone_number, duration } =
     req.body;
 
   if (
     !fullname &&
     !email &&
     !phone_number &&
-    !start_date &&
-    !end_date &&
     !duration
   )
     return helpers.newError("fields cannot be empty", 403);
@@ -31,8 +29,6 @@ const addClient = async (req) => {
     fullname,
     email,
     phone_number,
-    start_date,
-    end_date,
     duration,
   };
 
