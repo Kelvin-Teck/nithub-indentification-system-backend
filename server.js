@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 
 // cors options
 const corsOptions = {
-  origin: ['http://localhost:5173'],
+  origin: ['http://localhost:5173', 'http'],
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 };
 // cross site origin fix
@@ -31,13 +31,13 @@ app.use(cors(corsOptions));
 //   next();
 // });
 
-// app.use((req, res, next) =>  {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   next();
-// });
+app.use((req, res, next) =>  {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // Parse JSON bodies for all requests
 app.use(express.json({ extended: true }));
