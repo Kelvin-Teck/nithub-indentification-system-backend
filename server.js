@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 
 // cors options
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http'],
+  origin: '*',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 };
 // cross site origin fix
