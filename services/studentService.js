@@ -30,14 +30,6 @@ const addStudent = async (req) => {
     )
     return helpers.newError("fields cannot be empty", 403);
   
-      if (
-        !fullname ||
-        !email ||
-        !phone_number ||
-        !program_type ||
-        !program_duration
-      )
-        return helpers.newError("pls enter all fields", 403);
   
   const data = {
     fullname,

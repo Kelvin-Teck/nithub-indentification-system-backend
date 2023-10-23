@@ -25,15 +25,7 @@ const addClient = async (req) => {
   )
     return helpers.newError("fields cannot be empty", 403);
   
-    if (
-      !fullname ||
-      !email ||
-      !phone_number ||
-      !start_date ||
-      !end_date ||
-      !duration
-    )
-      return helpers.newError("pls enter all fields", 403);
+
 
   const data = {
     fullname,
