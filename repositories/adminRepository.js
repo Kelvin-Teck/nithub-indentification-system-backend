@@ -6,6 +6,7 @@ const makeAdmin = async (data) => {
     firstname: data.firstname,
     lastname: data.lastname,
     email: data.email,
+    phone_number: data.phone_number,
     designation: data.designation,
   });
 

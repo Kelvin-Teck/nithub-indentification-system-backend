@@ -7,6 +7,7 @@ const staffSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     designation: { type: String, required: true },
     phone_number: { type: String, required: true, unique: true },
+    qrcode: { type: String },
   },
   { timestamps: true }
 );
