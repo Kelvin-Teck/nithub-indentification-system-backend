@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const connectToDB = async () => {
   try {
     mongoose.set("strictQuery", true);
-    console.log(process.env.MONGODB_URI_PRODUCTION);
 
     await mongoose.connect(process.env.MONGODB_URI_PRODUCTION, {
       dbName: "nithub-indentification-system",
@@ -26,5 +25,7 @@ db.Student = require("../models/student");
 db.Client = require("../models/client");
 db.Intern = require("../models/intern");
 db.Visitor = require("../models/visitor");
+db.Admin = require("../models/admin");
+db.Staff = require("../models/staff");
 
 module.exports = { connectToDB, db };

@@ -59,12 +59,17 @@ const clientRoutes = require("./routes/clientRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const internRoutes = require("./routes/internRoutes");
 const visitorRoutes = require("./routes/visitorRoutes");
+const adminRoutes = require('./routes/adminRoutes');
+const staffRoutes = require("./routes/staffRoutes");
 
 // Route initialization
 app.use("/api/client", clientRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/intern", internRoutes);
 app.use("/api/visitor", visitorRoutes);
+app.use("/api/admin", adminRoutes)
+app.use("/api/staff", staffRoutes);
+
 
 app.listen(PORT, async () => {
   await connectToDB();
