@@ -4,7 +4,7 @@ const connectToDB = async () => {
   try {
     mongoose.set("strictQuery", true);
 
-    await mongoose.connect(process.env.MONGODB_URI_PRODUCTION, {
+    await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
       dbName: "nithub-indentification-system",
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -15,6 +15,8 @@ const connectToDB = async () => {
     console.log(
       `There was an error trying to connect to DB!!! ${error.message}`
     );
+
+    return;
   }
 };
 //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

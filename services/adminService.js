@@ -22,11 +22,19 @@ const makeAdmin = async (req, res) => {
 
   const { password: pass, ...data_to_sign } = data;
 
-  const accessToken = await helpers.createAccessToken(data);
-
-  console.log(accessToken)
+  const accessToken = await helpers.createAccessToken(data_to_sign);
 
   await adminRepository.makeAdmin(data);
+
+  const mailIfo = {
+    to: "chimborvictor10@gmail.com",
+    subject: "assign as an admin at Nithub",
+    text: "",
+    html: `<div>You have been assigned as an admin an
+     your password is : ${password}</div>`,
+  };
+
+  await helpers.sendMail(mailIfo);
 
   return;
 };
@@ -47,7 +55,6 @@ const login = async (req, res) => {
   if (!verifiedPassword)
     return helpers.newError("incorrect password or email", 403);
 
-  
   console.log(verifiedPassword);
 };
 

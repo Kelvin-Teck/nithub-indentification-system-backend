@@ -93,23 +93,19 @@ const createAccessToken = (admin) =>
 
 const sendMail = async (mailIfo) => {
   let message = {
-    from: "",
-    to: '',
-    subject: '',
-    text: '',
-    html: ''
-  }
-  
+    from: "<message@noreply>",
+    to: mailIfo.to,
+    subject: mailIfo.subject,
+    text: mailIfo.text,
+    html: mailIfo.html,
+  };
+
   try {
-  await transporter.sendMail(message);
-    
+    await transporter.sendMail(message);
   } catch (error) {
-    
+    return newError(error.message, 403);
   }
-
-}
-  
-
+};
 
 module.exports = {
   sendError,
@@ -120,5 +116,5 @@ module.exports = {
   hashPassword,
   verifyPassword,
   createAccessToken,
-  sendMail
+  sendMail,
 };
