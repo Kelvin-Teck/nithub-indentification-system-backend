@@ -11,7 +11,6 @@ const addStaff = async (req, res) => {
   const QRCode = await helpers.generateQRCode(data);
   data.qrcode = QRCode;
 
-  console.log(QRCode);
 
   await staffRepository.addStaff(data);
 

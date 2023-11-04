@@ -1,5 +1,7 @@
 const QRCode = require("qrcode");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const transporter = require("../mailer/transporter");
 
 const sendError = (message, code) => {
   var error = {
@@ -72,16 +74,42 @@ const hashPassword = async (data) => {
 
 const verifyPassword = async (inputed_password, password_from_db) => {
   try {
-    const verifiedPassword = bcrypt.compare(inputed_password, password_from_db);
+    const verifiedPassword = await bcrypt.compare(
+      inputed_password,
+      password_from_db
+    );
 
     return verifiedPassword;
   } catch (error) {
     return newError(
-      "error ocurred while trying to hash password" + error.message,
+      "error ocurred while trying to validate password " + error.message,
       404
     );
   }
 };
+
+const createAccessToken = (admin) =>
+  jwt.sign(admin, process.env.JWT_ACCESS_TOKEN_SECRET, { expiresIn: "5h" });
+
+const sendMail = async (mailIfo) => {
+  let message = {
+    from: "",
+    to: '',
+    subject: '',
+    text: '',
+    html: ''
+  }
+  
+  try {
+  await transporter.sendMail(message);
+    
+  } catch (error) {
+    
+  }
+
+}
+  
+
 
 module.exports = {
   sendError,
@@ -91,4 +119,6 @@ module.exports = {
   generatePassword,
   hashPassword,
   verifyPassword,
+  createAccessToken,
+  sendMail
 };

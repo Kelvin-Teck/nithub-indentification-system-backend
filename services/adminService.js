@@ -20,9 +20,35 @@ const makeAdmin = async (req, res) => {
     password: hashPassword,
   };
 
+  const { password: pass, ...data_to_sign } = data;
+
+  const accessToken = await helpers.createAccessToken(data);
+
+  console.log(accessToken)
+
   await adminRepository.makeAdmin(data);
 
   return;
 };
 
-module.exports = { makeAdmin };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email && !password)
+    return helpers.newError("pls fill your credentials!!!", 403);
+
+  const adminInfo = await adminRepository.getAdminByEmail(email);
+
+  const verifiedPassword = await helpers.verifyPassword(
+    adminInfo.password,
+    password
+  );
+
+  if (!verifiedPassword)
+    return helpers.newError("incorrect password or email", 403);
+
+  
+  console.log(verifiedPassword);
+};
+
+module.exports = { makeAdmin, login };

@@ -1,6 +1,14 @@
 const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
+const getAdminByEmail = async (email) => {
+  const adminInfo = await db.Admin.findOne({ email });
+
+  if (!adminInfo) return helpers.newError("sorry you are not an authorized admin!!!", 404);
+
+  return adminInfo;
+}
+
 const makeAdmin = async (data) => {
   const staffInfo = await db.Staff.findOne({
     firstname: data.firstname,
@@ -28,4 +36,4 @@ const makeAdmin = async (data) => {
   return;
 };
 
-module.exports = { makeAdmin };
+module.exports = { makeAdmin, getAdminByEmail };
