@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const adminSchema = mongoose.Schema(
   {
-    staff: { type: mongoose.Types.ObjectId, ref: "Staff" },
-    admin_type: { type: String, enum : ["super", "minor"], default: "minor" },
+    staff: { type: mongoose.Types.ObjectId, ref: "Staffs" },
+    admin_type: { type: String, enum: ["super", "minor"], default: "minor" },
     password: { type: String },
   },
   { timestamps: true }

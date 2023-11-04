@@ -73,6 +73,8 @@ const hashPassword = async (data) => {
 };
 
 const verifyPassword = async (inputed_password, password_from_db) => {
+  console.log(inputed_password, password_from_db);
+
   try {
     const verifiedPassword = await bcrypt.compare(
       inputed_password,
@@ -91,13 +93,13 @@ const verifyPassword = async (inputed_password, password_from_db) => {
 const createAccessToken = (admin) =>
   jwt.sign(admin, process.env.JWT_ACCESS_TOKEN_SECRET, { expiresIn: "5h" });
 
-const sendMail = async (mailIfo) => {
+const sendMail = async (mailInfo) => {
   let message = {
     from: "<message@noreply>",
-    to: mailIfo.to,
-    subject: mailIfo.subject,
-    text: mailIfo.text,
-    html: mailIfo.html,
+    to: mailInfo.to,
+    subject: mailInfo.subject,
+    text: mailInfo.text,
+    html: mailInfo.html,
   };
 
   try {
