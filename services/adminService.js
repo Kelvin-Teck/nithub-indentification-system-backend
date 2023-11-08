@@ -4,10 +4,6 @@ const staffRepository = require("../repositories/staffRepository");
 
 const makeAdmin = async (req, res) => {
   const { id } = req.params;
-  const { firstname, lastname, email, designation, phone_number } = req.body;
-
-  if (!firstname && !lastname && !email && !designation && !phone_number)
-    return helpers.newError("credentials cannot be empty", 403);
 
   const isExistingAdmin = await adminRepository.getAdminByStaffId(id);
 
