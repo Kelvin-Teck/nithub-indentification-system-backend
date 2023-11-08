@@ -19,9 +19,6 @@ const seedStaff = async () => {
     console.log(error.message);
   }
 };
-
-seedStaff();
-
 // {
 //     firstname: "David",
 //     lastname: "Loop",
