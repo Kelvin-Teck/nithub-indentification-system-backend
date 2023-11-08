@@ -27,15 +27,11 @@ const makeAdmin = async (data) => {
       403
     );
 
-  const password = helpers.generatePassword();
+  
 
-  const hashedPassword = await helpers.hashPassword(password);
+  await db.Admin.create({ staff: staffInfo._id, password: data.hashedPassword });
 
-  await db.Admin.create({ staff: staffInfo._id, password: hashedPassword });
-
-  const newAdmin = { password };
-
-  return newAdmin;
+  return;
 };
 
 module.exports = { makeAdmin, getAdminByStaffId };

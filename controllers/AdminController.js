@@ -3,8 +3,8 @@ const adminService = require("../services/adminService");
 
 const makeAdmin = async (req, res) => {
   try {
-    const response = await adminService.makeAdmin(req);
-    
+    const response = await adminService.makeAdmin(req);  
+  
     return res
       .status(200)
       .json(
@@ -27,6 +27,8 @@ const makeAdmin = async (req, res) => {
 const login = async (req, res) => {
   try {
     const response = await adminService.login(req);
+
+    console.log({response})
 
     return res
       .status(200)

@@ -5,6 +5,8 @@ const staffRepository = require("../repositories/staffRepository");
 const makeAdmin = async (req, res) => {
   const { id } = req.params;
 
+  const {email} = req.body
+
   const isExistingAdmin = await adminRepository.getAdminByStaffId(id);
 
   if (isExistingAdmin) {
@@ -14,21 +16,27 @@ const makeAdmin = async (req, res) => {
     );
   }
 
-  const data = {
-    id,
-    firstname,
-    lastname,
-    email,
-    phone_number,
-    designation,
-  };
+  // const data = {
+  //   id,
+  //   firstname,
+  //   lastname,
+  //   email,
+  //   phone_number,
+  //   designation,
+  // };
 
-  const { password } = await adminRepository.makeAdmin(data);
-  console.log(password);
+  const password = helpers.generatePassword();
+
+  const hashedPassword = await helpers.hashPassword(password);
+
+   const data = {id, hashedPassword}
+
+  await adminRepository.makeAdmin(data);
+  
 
   const mailInfo = {
     to: email,
-    subject: "assign as an admin at Nithub",
+    subject: "Invitation to become an admin as an admin at Nithub",
     text: "",
     html: `<div>You have been assigned as an admin an
      your password is : ${password}</div>`,
@@ -48,13 +56,14 @@ const login = async (req, res) => {
   const staffDetails = await staffRepository.getStaffByEmail(email);
 
   const adminInfo = await adminRepository.getAdminByStaffId(staffDetails._id);
-  console.log({ adminInfo });
 
   if (adminInfo) {
     const verifyPassword = await helpers.verifyPassword(
       password,
       adminInfo.password
     );
+
+    console.log(verifyPassword);
 
     if (verifyPassword) {
       const { password: pass, ...data_to_be_signed } = adminInfo;
@@ -64,7 +73,7 @@ const login = async (req, res) => {
       return accessToken;
     }
 
-  
+    return helpers.newError("incorrect password or email...try again", 403);
   }
 };
 
