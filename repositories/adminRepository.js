@@ -6,20 +6,13 @@ const getAdminByStaffId = async (id) => {
     staff: id,
   });
 
-  if (!adminInfo)
-    return;
+  if (!adminInfo) return;
 
   return adminInfo;
 };
 
 const makeAdmin = async (data) => {
-  const staffInfo = await db.Staff.findOne({
-    firstname: data.firstname,
-    lastname: data.lastname,
-    email: data.email,
-    phone_number: data.phone_number,
-    designation: data.designation,
-  });
+  const staffInfo = await db.Staff.findById(data.id);
 
   if (!staffInfo)
     return helpers.newError("This staff does not exist in record!!!", 404);
@@ -34,9 +27,15 @@ const makeAdmin = async (data) => {
       403
     );
 
-  await db.Admin.create({ staff: staffInfo._id, password: data.password });
+  const password = helpers.generatePassword();
 
-  return;
+  const hashedPassword = await helpers.hashPassword(password);
+
+  await db.Admin.create({ staff: staffInfo._id, password: hashedPassword });
+
+  const newAdmin = { password };
+
+  return newAdmin;
 };
 
 module.exports = { makeAdmin, getAdminByStaffId };

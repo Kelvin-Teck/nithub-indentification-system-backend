@@ -1,5 +1,5 @@
 const QRCode = require("qrcode");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const transporter = require("../mailer/transporter");
 
@@ -73,7 +73,6 @@ const hashPassword = async (data) => {
 };
 
 const verifyPassword = async (inputed_password, password_from_db) => {
-  console.log(inputed_password, password_from_db);
 
   try {
     const verifiedPassword = await bcrypt.compare(

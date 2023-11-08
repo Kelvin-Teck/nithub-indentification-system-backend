@@ -4,7 +4,7 @@ const adminService = require("../services/adminService");
 const makeAdmin = async (req, res) => {
   try {
     const response = await adminService.makeAdmin(req);
-
+    
     return res
       .status(200)
       .json(
