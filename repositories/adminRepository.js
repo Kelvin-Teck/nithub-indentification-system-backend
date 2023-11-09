@@ -11,8 +11,30 @@ const getAdminByStaffId = async (id) => {
   return adminInfo;
 };
 
+const getAdminByStaffEmail = async (email) => {
+  const staffInfo = await db.Staff.findOne({
+    email,
+  });
+
+  if (!staffInfo) return;
+
+  const adminInfo = await getAdminByStaffId(staffInfo._id);
+
+  if (!adminInfo) return;
+
+  return adminInfo;
+};
+
+const changePassword = async (id, password) => {
+  await db.Admin.findByIdAndUpdate({ _id: id }, { password });
+
+  return;
+};
+
 const revokeAdmin = async (adminId) => {
   await db.Admin.deleteOne({ _id: adminId });
+
+  return;
 };
 
 const makeAdmin = async (data) => {
@@ -39,4 +61,10 @@ const makeAdmin = async (data) => {
   return;
 };
 
-module.exports = { makeAdmin, getAdminByStaffId, revokeAdmin };
+module.exports = {
+  makeAdmin,
+  getAdminByStaffId,
+  revokeAdmin,
+  getAdminByStaffEmail,
+  changePassword,
+};

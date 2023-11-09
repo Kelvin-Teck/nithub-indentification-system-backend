@@ -73,6 +73,10 @@ const login = async (req, res) => {
 
     return helpers.newError("incorrect password or email...try again", 403);
   }
+
+  return helpers.newError(
+    "no admin exists with this credentials you provided!!!"
+  );
 };
 
 const revokeAdmin = async (req, res) => {
@@ -83,6 +87,37 @@ const revokeAdmin = async (req, res) => {
   if (!Admin) return helpers.newError("this staff is not an admin", 403);
 
   await adminRepository.revokeAdmin(isAdmin._id);
+
+  return;
 };
 
-module.exports = { makeAdmin, login, revokeAdmin };
+const changePassword = async (req, res) => {
+  const { email } = req.body;
+
+  const isAdmin = await adminRepository.getAdminByStaffEmail(email);
+
+  if (!isAdmin)
+    return helpers.newError(
+      "cannot perform this operation because you are not an admin",
+      403
+    );
+
+  const newpassword = helpers.generatePassword();
+
+  const hashPassword = await helpers.hashPassword(newpassword);
+
+  await adminRepository.changePassword(isAdmin._id, hashPassword);
+
+  const mailInfo = {
+    to: email,
+    subject: "Admin Password Reset",
+    text: "",
+    html: `<div>your new password is: <strong><i>${newpassword}</i></strong></div>`,
+  };
+
+  await helpers.sendMail(mailInfo);
+
+  return;
+};
+
+module.exports = { makeAdmin, login, revokeAdmin, changePassword };
