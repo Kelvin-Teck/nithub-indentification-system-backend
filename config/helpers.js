@@ -73,7 +73,6 @@ const hashPassword = async (data) => {
 };
 
 const verifyPassword = async (inputed_password, password_from_db) => {
-
   try {
     const verifiedPassword = await bcrypt.compare(
       inputed_password,
@@ -108,6 +107,17 @@ const sendMail = async (mailInfo) => {
   }
 };
 
+const verifyAccessToken = async (token) => {
+  jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, decode) => {
+    if (err) {
+      newError(err.message, 403);
+    } else {
+      req.admin = decode;
+      next();
+    }
+  });
+};
+
 module.exports = {
   sendError,
   sendSuccess,
@@ -118,4 +128,5 @@ module.exports = {
   verifyPassword,
   createAccessToken,
   sendMail,
+  verifyAccessToken,
 };

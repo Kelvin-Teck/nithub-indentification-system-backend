@@ -1,11 +1,12 @@
 const helpers = require("../config/helpers");
+const Admin = require("../models/admin");
 const adminRepository = require("../repositories/adminRepository");
 const staffRepository = require("../repositories/staffRepository");
 
 const makeAdmin = async (req, res) => {
   const { id } = req.params;
 
-  const {email} = req.body
+  const { email } = req.body;
 
   const isExistingAdmin = await adminRepository.getAdminByStaffId(id);
 
@@ -29,10 +30,9 @@ const makeAdmin = async (req, res) => {
 
   const hashedPassword = await helpers.hashPassword(password);
 
-   const data = {id, hashedPassword}
+  const data = { id, hashedPassword };
 
   await adminRepository.makeAdmin(data);
-  
 
   const mailInfo = {
     to: email,
@@ -63,8 +63,6 @@ const login = async (req, res) => {
       adminInfo.password
     );
 
-    console.log(verifyPassword);
-
     if (verifyPassword) {
       const { password: pass, ...data_to_be_signed } = adminInfo;
 
@@ -77,4 +75,14 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { makeAdmin, login };
+const revokeAdmin = async (req, res) => {
+  const { id } = req.params;
+
+  const isAdmin = await adminRepository.getAdminByStaffId(id);
+
+  if (!Admin) return helpers.newError("this staff is not an admin", 403);
+
+  await adminRepository.revokeAdmin(isAdmin._id);
+};
+
+module.exports = { makeAdmin, login, revokeAdmin };

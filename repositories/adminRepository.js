@@ -11,6 +11,10 @@ const getAdminByStaffId = async (id) => {
   return adminInfo;
 };
 
+const revokeAdmin = async (adminId) => {
+  await db.Admin.deleteOne({ _id: adminId });
+};
+
 const makeAdmin = async (data) => {
   const staffInfo = await db.Staff.findById(data.id);
 
@@ -27,11 +31,12 @@ const makeAdmin = async (data) => {
       403
     );
 
-  
-
-  await db.Admin.create({ staff: staffInfo._id, password: data.hashedPassword });
+  await db.Admin.create({
+    staff: staffInfo._id,
+    password: data.hashedPassword,
+  });
 
   return;
 };
 
-module.exports = { makeAdmin, getAdminByStaffId };
+module.exports = { makeAdmin, getAdminByStaffId, revokeAdmin };
