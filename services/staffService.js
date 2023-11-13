@@ -19,7 +19,8 @@ const addStaff = async (req, res) => {
 const updateStaff = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
-  console.log(data);
+  if (!data) return helpers.newError("fields cannot be empty!!!", 403);
+
   const staffInfo = await staffRepository.getStaffById(id);
 
   if (!staffInfo)
