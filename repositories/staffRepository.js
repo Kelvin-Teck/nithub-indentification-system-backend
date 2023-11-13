@@ -1,6 +1,15 @@
 const helpers = require("../config/helpers");
 const { db } = require("../database/db");
 
+const getAllStaff = async () => {
+  const allStaffs = await db.Staff.find({});
+
+  if (allStaffs.length == 0)
+    return helpers.newError("no staff found in record", 404);
+
+  return allStaffs;
+};
+
 const getStaffByEmail = async (email) => {
   const staffInfo = await db.Staff.findOne({ email });
 
@@ -18,8 +27,8 @@ const getStaffById = async (id) => {
 };
 
 const updateStaff = async (id, data) => {
-  console.log(data, id)
-  await db.Staff.findByIdAndUpdate({ _id: id }, data );
+  console.log(data, id);
+  await db.Staff.findByIdAndUpdate({ _id: id }, data);
   return;
 };
 
@@ -36,4 +45,10 @@ const addStaff = async (data) => {
   return;
 };
 
-module.exports = { addStaff, getStaffByEmail, getStaffById, updateStaff };
+module.exports = {
+  addStaff,
+  getAllStaff,
+  getStaffByEmail,
+  getStaffById,
+  updateStaff,
+};

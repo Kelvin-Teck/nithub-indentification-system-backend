@@ -1,6 +1,14 @@
 const helpers = require("../config/helpers");
 const staffRepository = require("../repositories/staffRepository");
 
+const getAllStaff = async (req, res) => {
+  const allStaffs = await staffRepository.getAllStaff();
+
+  if (!allStaffs) return helpers.newError('no staff found in record', 404);
+
+  return allStaffs;
+}
+
 const addStaff = async (req, res) => {
   const { firstname, lastname, email, designation, phone_number } = req.body;
 
@@ -39,4 +47,4 @@ const updateStaff = async (req, res) => {
   return;
 };
 
-module.exports = { addStaff, updateStaff };
+module.exports = {getAllStaff, addStaff, updateStaff };
