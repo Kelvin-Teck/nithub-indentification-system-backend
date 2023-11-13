@@ -11,10 +11,23 @@ const addStaff = async (req, res) => {
   const QRCode = await helpers.generateQRCode(data);
   data.qrcode = QRCode;
 
-
   await staffRepository.addStaff(data);
 
   return;
 };
 
-module.exports = { addStaff };
+const updateStaff = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  console.log(data);
+  const staffInfo = await staffRepository.getStaffById(id);
+
+  if (!staffInfo)
+    return helpers.newError("this staff does not exists in our record", 403);
+
+  await staffRepository.updateStaff(id, data);
+
+  return;
+};
+
+module.exports = { addStaff, updateStaff };

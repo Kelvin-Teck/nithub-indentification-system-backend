@@ -9,6 +9,20 @@ const getStaffByEmail = async (email) => {
   return staffInfo;
 };
 
+const getStaffById = async (id) => {
+  const staffInfo = await db.Staff.findOne({ _id: id });
+
+  if (!staffInfo) return;
+
+  return staffInfo;
+};
+
+const updateStaff = async (id, data) => {
+  console.log(data, id)
+  await db.Staff.findByIdAndUpdate({ _id: id }, data );
+  return;
+};
+
 const addStaff = async (data) => {
   const isExistingStaff = await db.Staff.findOne(data);
 
@@ -22,4 +36,4 @@ const addStaff = async (data) => {
   return;
 };
 
-module.exports = { addStaff, getStaffByEmail };
+module.exports = { addStaff, getStaffByEmail, getStaffById, updateStaff };

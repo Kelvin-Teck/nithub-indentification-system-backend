@@ -19,4 +19,23 @@ const addStaff = async (req, res) => {
   }
 };
 
-module.exports = { addStaff };
+const updateStaff = async (req, res) => {
+  try {
+    const response = await StaffService.updateStaff(req);
+
+    return res
+      .status(200)
+      .json(helpers.sendSuccess("staff updated successfully", response));
+  } catch (error) {
+    if (error.status) {
+      return res
+        .status(error.status)
+        .json(helpers.sendError(error.message, error.status));
+    }
+
+    return res.status(500).json(helpers.sendError(error.message, 500));
+  }
+};
+
+
+module.exports = { addStaff, updateStaff };
