@@ -27,7 +27,6 @@ const getStaffById = async (id) => {
 };
 
 const updateStaff = async (id, data) => {
-  console.log(data, id);
   await db.Staff.findByIdAndUpdate({ _id: id }, data);
   return;
 };

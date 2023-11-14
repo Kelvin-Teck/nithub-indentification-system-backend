@@ -34,6 +34,8 @@ const makeAdmin = async (req, res) => {
 
   await adminRepository.makeAdmin(data);
 
+  await staffRepository.updateStaff(id, { is_admin: true });
+
   const mailInfo = {
     to: email,
     subject: "Invitation to become an admin as an admin at Nithub",
@@ -87,6 +89,7 @@ const revokeAdmin = async (req, res) => {
   if (!Admin) return helpers.newError("this staff is not an admin", 403);
 
   await adminRepository.revokeAdmin(isAdmin._id);
+  await staffRepository.updateStaff(id, { is_admin: false });
 
   return;
 };

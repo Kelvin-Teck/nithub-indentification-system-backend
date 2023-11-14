@@ -6,6 +6,7 @@ const staffSchema = mongoose.Schema(
     lastname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     designation: { type: String, required: true },
+    is_admin: {type:Boolean, default: false},
     phone_number: { type: String, required: true, unique: true },
     qrcode: { type: String },
   },
