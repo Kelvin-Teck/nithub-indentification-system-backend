@@ -4,10 +4,20 @@ const staffRepository = require("../repositories/staffRepository");
 const getAllStaff = async (req, res) => {
   const allStaffs = await staffRepository.getAllStaff();
 
-  if (!allStaffs) return helpers.newError('no staff found in record', 404);
+  if (!allStaffs) return helpers.newError("no staff found in record", 404);
 
   return allStaffs;
-}
+};
+
+const getSingleStaff = async (req, res) => {
+  const { id } = req.params;
+
+  const staffInfo = await staffRepository.getStaffById(id);
+
+  if (!staffInfo) return helpers.newError("this staff does not exist!!!", 404);
+
+  return staffInfo;
+};
 
 const addStaff = async (req, res) => {
   const { firstname, lastname, email, designation, phone_number } = req.body;
@@ -47,4 +57,4 @@ const updateStaff = async (req, res) => {
   return;
 };
 
-module.exports = {getAllStaff, addStaff, updateStaff };
+module.exports = { getAllStaff, getSingleStaff, addStaff, updateStaff };

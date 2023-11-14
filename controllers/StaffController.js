@@ -19,6 +19,26 @@ const getAllStaff = async (req, res) => {
   }
 };
 
+const getSingleStaff = async (req, res) => {
+    try {
+      const response = await StaffService.getSingleStaff(req);
+
+      return res
+        .status(200)
+        .json(
+          helpers.sendSuccess("staff retrieved successfully", response)
+        );
+    } catch (error) {
+      if (error.status) {
+        return res
+          .status(error.status)
+          .json(helpers.sendError(error.message, error.status));
+      }
+
+      return res.status(500).json(helpers.sendError(error.message, 500));
+    }
+}
+
 const addStaff = async (req, res) => {
   try {
     const response = await StaffService.addStaff(req);
@@ -55,4 +75,4 @@ const updateStaff = async (req, res) => {
   }
 };
 
-module.exports = {getAllStaff, addStaff, updateStaff };
+module.exports = {getAllStaff, getSingleStaff, addStaff, updateStaff };
