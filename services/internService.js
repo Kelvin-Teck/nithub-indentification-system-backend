@@ -17,7 +17,6 @@ const addIntern = async (req) => {
   if (!name && !email && !phone_number && !internship_position && !duration)
     return helpers.newError("fields cannot be empty", 403);
 
-
   const data = {
     name,
     email,
@@ -38,7 +37,7 @@ const addIntern = async (req) => {
 const getSingleInternQRCode = async (req) => {
   const { id } = req.params;
 
-  const InternInfo = await internRepository.getStudentById(id);
+  const InternInfo = await internRepository.getInternById(id);
 
   if (!InternInfo) return;
 

@@ -8,7 +8,7 @@ const getAllInterns = async () => {
 };
 
 const getInternById = async (id) => {
-  const intern = await db.Student.findOne({ _id: id });
+  const intern = await db.Intern.findOne({ _id: id });
 
   if (!intern) {
     return helpers.newError("intern does not exist in our records", 404);

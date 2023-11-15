@@ -5,6 +5,7 @@ const cache = require("../middlewares/cache");
 
 router.get("/get-all-staffs", cache(300), staffController.getAllStaff);
 router.get("/get-single-staff/:id", cache(300), staffController.getSingleStaff);
+router.get('/get-qrcode/:id', staffController.getSingleStaffQRCode)
 router.post("/add-staff", staffController.addStaff);
 router.post("/update-staff/:id", staffController.updateStaff);
 

@@ -40,7 +40,6 @@ const addIntern = async (req, res, next) => {
 };
 
 const getSingleInternQRCode = async (req, res) => {
-  console.log(req.params.id);
   try {
     const response = await internService.getSingleInternQRCode(req);
 

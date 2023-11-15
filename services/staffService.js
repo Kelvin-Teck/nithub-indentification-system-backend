@@ -19,6 +19,16 @@ const getSingleStaff = async (req, res) => {
   return staffInfo;
 };
 
+const getSingleStaffQRCode = async (req, res) => {
+  const { id } = req.params;
+
+  const staffInfo = await staffRepository.getStaffById(id);
+
+  if (!staffInfo) return helpers.newError("this staff does not exist", 404);
+
+  return staffInfo.qrcode;
+};
+
 const addStaff = async (req, res) => {
   const { firstname, lastname, email, designation, phone_number } = req.body;
 
@@ -57,4 +67,10 @@ const updateStaff = async (req, res) => {
   return;
 };
 
-module.exports = { getAllStaff, getSingleStaff, addStaff, updateStaff };
+module.exports = {
+  getAllStaff,
+  getSingleStaff,
+  getSingleStaffQRCode,
+  addStaff,
+  updateStaff,
+};
