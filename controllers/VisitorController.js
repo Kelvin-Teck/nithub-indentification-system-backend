@@ -21,6 +21,26 @@ const getAllVisitors = async (req, res, next) => {
   }
 };
 
+const getSingleVisitor = async (req, res) => {
+  try {
+    const response = await visitorService.getSingleVisitor(req);
+
+    return res
+      .status(200)
+      .json(
+        helpers.sendSuccess("visitor successfully retrived!!!", response)
+      );
+  } catch (error) {
+    if (error.status) {
+      return res
+        .status(error.status)
+        .json(helpers.sendError("couldn't get visitor!!!", error.status));
+    }
+
+    return res.status(500).json(helpers.sendError(error.message, 500));
+  }
+}
+
 const addVisitor = async (req, res) => {
 
   try {
@@ -66,6 +86,7 @@ const getSingleVisitorQRCode = async (req, res) => {
 
 module.exports = {
   getAllVisitors,
+  getSingleVisitor,
   getSingleVisitorQRCode,
   addVisitor
 };

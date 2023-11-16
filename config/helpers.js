@@ -32,8 +32,8 @@ const newError = (message, code) => {
 
 const generateQRCode = async (data) => {
   try {
-    const json_to_string = JSON.stringify(data);
-    const code = await QRCode.toDataURL(json_to_string);
+    // const json_to_string = JSON.stringify(data);
+    const code = await QRCode.toDataURL(data);
 
     return code;
   } catch (error) {

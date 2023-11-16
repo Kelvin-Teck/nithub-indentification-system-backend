@@ -11,19 +11,22 @@ const getAllClients = async () => {
   return allClients;
 };
 
+const getSingleClient = async (req) => {
+  const { id } = req.params;
+
+  const clientInfo = await clientRepository.getClientById(id);
+
+  if (!clientInfo)
+    return helpers.newError("this client does not exists in record", 404);
+
+  return clientInfo;
+};
+
 const addClient = async (req) => {
-  const { fullname, email, phone_number, duration } =
-    req.body;
+  const { fullname, email, phone_number, duration } = req.body;
 
-  if (
-    !fullname &&
-    !email &&
-    !phone_number &&
-    !duration
-  )
+  if (!fullname && !email && !phone_number && !duration)
     return helpers.newError("fields cannot be empty", 403);
-  
-
 
   const data = {
     fullname,
@@ -53,6 +56,7 @@ const getSingleClientQRCode = async (req) => {
 
 module.exports = {
   getAllClients,
+  getSingleClient,
   addClient,
   getSingleClientQRCode,
 };

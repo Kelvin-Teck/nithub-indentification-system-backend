@@ -21,6 +21,26 @@ const getAllInterns = async (req, res, next) => {
   }
 };
 
+const getSingleIntern = async (req, res) => {
+    try {
+      const response = await internService.getSingleIntern(req);
+
+      return res
+        .status(200)
+        .json(
+          helpers.sendSuccess("interns successfully retrived!!!", response)
+        );
+    } catch (error) {
+      if (error.status) {
+        return res
+          .status(error.status)
+          .json(helpers.sendError("couldn't get intern!!!", error.status));
+      }
+
+      return res.status(500).json(helpers.sendError(error.message, 500));
+    }
+};
+
 const addIntern = async (req, res, next) => {
   try {
     const response = await internService.addIntern(req);
@@ -63,7 +83,8 @@ const getSingleInternQRCode = async (req, res) => {
 };
 
 module.exports = {
-    getAllInterns,
-    getSingleInternQRCode,
-    addIntern
+  getAllInterns,
+  getSingleIntern,
+  getSingleInternQRCode,
+  addIntern,
 };

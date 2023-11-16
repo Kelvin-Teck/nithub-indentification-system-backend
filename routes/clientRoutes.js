@@ -4,6 +4,7 @@ const ClientController = require("../controllers/ClientController");
 const cache = require("../middlewares/cache");
 
 router.get("/get-all-clients", cache(300), ClientController.getAllClients);
+router.get("/get-single-client/:id", cache(300), ClientController.getSingleClient);
 router.get(
   "/get-qrcode/:id",
   cache(300),

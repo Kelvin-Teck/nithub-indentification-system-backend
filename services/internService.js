@@ -11,6 +11,17 @@ const getAllInterns = async () => {
   return allIntern;
 };
 
+const getSingleIntern = async (req) => {
+  const { id } = req.params;
+
+  const internInfo = await internRepository.getInternById(id);
+
+  if (!internInfo)
+    return helpers.newError("this intern does not exist in our record", 404);
+
+  return internInfo;
+};
+
 const addIntern = async (req) => {
   const { name, email, phone_number, internship_position, duration } = req.body;
 
@@ -46,6 +57,7 @@ const getSingleInternQRCode = async (req) => {
 
 module.exports = {
   getAllInterns,
+  getSingleIntern,
   getSingleInternQRCode,
   addIntern,
 };

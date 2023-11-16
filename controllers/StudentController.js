@@ -21,6 +21,29 @@ const getAllStudents = async (req, res, next) => {
   }
 };
 
+
+const getSingleStudent = async (req, res) => {
+    try {
+      const response = await studentService.getSingleStudent(req);
+
+      return res
+        .status(200)
+        .json(
+          helpers.sendSuccess("student successfully retrived!!!", response)
+        );
+    } catch (error) {
+      if (error.status) {
+        return res
+          .status(error.status)
+          .json(
+            helpers.sendError("couldn't get student!!!", error.status)
+          );
+      }
+
+      return res.status(500).json(helpers.sendError(error.message, 500));
+    }
+}
+
 const addStudent = async (req, res, next) => {
   try {
     const response = await studentService.addStudent(req);
@@ -62,6 +85,8 @@ const getSingleStudentQRCode = async (req, res) => {
 }
 
 module.exports = {
-  getAllStudents,getSingleStudentQRCode,
+  getAllStudents,
+ getSingleStudent, 
+  getSingleStudentQRCode,
   addStudent,
 };

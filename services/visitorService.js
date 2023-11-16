@@ -11,22 +11,26 @@ const getAllVisitors = async () => {
   return allVisitors;
 };
 
-const addVisitor = async (req) => {
-  const {
-    name,
-    email,
-    phone_number,
-    duration,
-  } = req.body;
+const getSingleVisitor = async (req) => {
+  const { id } = req.params;
 
-    if (
-      !name &&
-      !email &&
-      !phone_number &&
-      !duration
-    )
+  const visitorInfo = await visitorRepository.getVisitorById(id);
+
+  if (!visitorInfo) {
+    return helpers.newError(
+      "this visitor does not exist in our record!!!",
+      404
+    );
+  }
+
+  return visitorInfo;
+};
+
+const addVisitor = async (req) => {
+  const { name, email, phone_number, duration } = req.body;
+
+  if (!name && !email && !phone_number && !duration)
     return helpers.newError("fields cannot be empty", 403);
-  
 
   const data = {
     name,
@@ -55,9 +59,8 @@ const getSingleVisitorQRCode = async (req) => {
 };
 
 module.exports = {
-    getAllVisitors,
-    getSingleVisitorQRCode,
-    addVisitor
+  getAllVisitors,
+  getSingleVisitor,
+  getSingleVisitorQRCode,
+  addVisitor,
 };
-
-

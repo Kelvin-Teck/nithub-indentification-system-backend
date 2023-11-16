@@ -11,26 +11,31 @@ const getAllStudents = async () => {
   return allStudents;
 };
 
+const getSingleStudent = async (req) => {
+  const { id } = req.params;
+
+  const studentInfo = await studentRepository.getStudentById(id);
+
+  if (!studentInfo) {
+    return helpers.newError("no student found in our record!!!", 404);
+  }
+
+  return studentInfo;
+};
+
 const addStudent = async (req) => {
-  const {
-    fullname,
-    email,
-    phone_number,
-    program_type,
-    program_duration,
-  } = req.body;
+  const { fullname, email, phone_number, program_type, program_duration } =
+    req.body;
 
-
-    if (
-      !fullname &&
-      !email &&
-      !phone_number &&
-      !program_type &&
-      !program_duration
-    )
+  if (
+    !fullname &&
+    !email &&
+    !phone_number &&
+    !program_type &&
+    !program_duration
+  )
     return helpers.newError("fields cannot be empty", 403);
-  
-  
+
   const data = {
     fullname,
     email,
@@ -41,7 +46,7 @@ const addStudent = async (req) => {
 
   const QRCode = await helpers.generateQRCode(data);
 
-   data.qrcode = QRCode; 
+  data.qrcode = QRCode;
 
   await studentRepository.addStudent(data);
 
@@ -50,16 +55,17 @@ const addStudent = async (req) => {
 
 const getSingleStudentQRCode = async (req) => {
   const { id } = req.params;
-  
+
   const studentInfo = await studentRepository.getStudentById(id);
 
   if (!studentInfo) return;
 
   return studentInfo.qrcode;
-}
+};
 
 module.exports = {
   getAllStudents,
+  getSingleStudent,
   getSingleStudentQRCode,
   addStudent,
 };
